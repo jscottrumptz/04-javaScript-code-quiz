@@ -6,8 +6,14 @@ let correctSectionEl = document.getElementById("correct");
 let answered = false;
 let timer = 75;
 let questionNumber = 0;
+let questionsLeft = true;
+let score = 0;
 
 let beginQuiz = function(){
+
+    questionNumber = 0;
+    questionsLeft = true;
+    score = 0;
 
     let countdown = function() {
         document.getElementById("timer").innerHTML = "Time: " + timer;
@@ -20,34 +26,40 @@ let beginQuiz = function(){
     
     let startTimer = setInterval(countdown, 1000);
 
+    // ask the first question
     nextQuestion();
-
 
 }
 
 let endQuiz = function() {
     alert("QUIZ IS OVER!");
+
     // get initials
     // post high scores
 }
 
 let nextQuestion = function() {
     
-    // set answered to false
-    answered = false;
+    // see if there are questions left
+    if(!questionsLeft) {
+        endQuiz();
+    } else {
+        // set answered to false
+        answered = false;
 
-    // clear info section
-    infoSectionEl.innerHTML = "";
+        // clear info section
+        infoSectionEl.innerHTML = "";
 
-    // pick question
-    let pickedQuestion = quizQuestions[questionNumber];
+        // pick question
+        let pickedQuestion = quizQuestions[questionNumber];
 
-    // clear previous answers and notifications if there are any
-    answerSectionEl.innerHTML = "";
-    document.getElementById("correct-section").style.display = "none"
+        // clear previous answers and notifications if there are any
+        answerSectionEl.innerHTML = "";
+        document.getElementById("correct-section").style.display = "none"
 
-    // asks the first question to the user
-    askQuestions(pickedQuestion);
+        // asks the first question to the user
+        askQuestions(pickedQuestion);
+    }
 }
 
 let askQuestions = function(quizQuestions) {
@@ -90,11 +102,12 @@ let testAnswer = function(event) {
         answered = true;
         // set up for next question
         questionNumber++;
-        // check if there is a next question if not call endQuiz function
+        // check if there is a next question if not set questions left to false
         if ((questionNumber > quizQuestions.length - 1) || (timer <= 0)) {
-            var wait = setTimeout(endQuiz, 5000);
+            score = timer;
+            questionsLeft = false;
         }
-        // if there is one, wait 5 seconds and ask the next question
+        // wait 5 seconds and ask the next question
         var wait = setTimeout(nextQuestion, 5000);
     } else if((targetEl.matches("button")) && (targetEl.getAttribute("data-correct") === "false") && (answered === false)) {
         // make the correct section visable
@@ -109,11 +122,12 @@ let testAnswer = function(event) {
         answered = true;
         // set up for next question
         questionNumber++;
-        // check if there is a next question if not call endQuiz function
+        // check if there is a next question if not set questions left to false
         if ((questionNumber > quizQuestions.length - 1) || (timer <= 0)) {
-            var wait = setTimeout(endQuiz, 5000);
+            score = timer;
+            questionsLeft = false;
         }
-        // if there is one, wait 5 seconds and ask the next question
+        // wait 5 seconds and ask the next question
         var wait = setTimeout(nextQuestion, 5000);
     }
 }
