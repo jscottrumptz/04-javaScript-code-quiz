@@ -42,6 +42,7 @@ let endQuiz = function() {
 
 let askQuestions = function(quizQuestions) {
 
+    // Writes the question to h1 question id
     document.getElementById("question").innerHTML = quizQuestions.question;
 
     // generate answer buttons
@@ -52,7 +53,7 @@ let askQuestions = function(quizQuestions) {
         answerButtonEl.textContent = quizQuestions.answers[i];
 
         // see if the button is the correct answer if so set data-correct to true
-        if (quizQuestions.answers[i] === quizQuestions.correctAnswer) {
+        if (quizQuestions.answers[i].charAt(0) === quizQuestions.correctAnswer) {
             answerButtonEl.setAttribute("data-correct", true);
         } else {
             answerButtonEl.setAttribute("data-correct", false);
@@ -64,11 +65,9 @@ let askQuestions = function(quizQuestions) {
     
 }
 
-
-
 let waitForAnswer = function(quizQuestions) {
     // do {
-    //     console.log("waiting...");
+    //     answerSectionEl.addEventListener("click", testAnswer);
     // } while((!answered) && (timer > 0))
 }
 
@@ -76,74 +75,34 @@ let testAnswer = function(event) {
     //get target element from event
     let targetEl = event.target;
 
-    if((targetEl.matches("button")) && (targetEl.getAttribute("data-correct") === "true")) {
+    if((targetEl.matches("button")) && (targetEl.getAttribute("data-correct") === "true") && (answered === false)) {
         document.getElementById("correct-section").style.display = "unset"
+        targetEl.setAttribute("data-clicked", true);
         correctSectionEl.innerHTML = "CORRECT!";
         answered = true;
-    } else if((targetEl.matches("button")) && (targetEl.getAttribute("data-correct") === "false")) {
+    } else if((targetEl.matches("button")) && (targetEl.getAttribute("data-correct") === "false") && (answered === false)) {
         document.getElementById("correct-section").style.display = "unset"
+        targetEl.setAttribute("data-clicked", true);
         correctSectionEl.innerHTML = "WRONG!";
         answered = true;
     }
 }
-
-
-
-// check answer for correctness
 
 // create question objects and store them into an array
 let quizQuestions = [
     {
         question: "How many fucks are given?",
         answers: ["1. zero","2. one","3. two","4. three"],
-        correctAnswer: "1. zero"
+        correctAnswer: "1"
     },
     {
         question: "Who does number two work for?",
-        answers: ["1. Bill Burr", "2. George Carlin", "3. Austion Powers", "4. Bill Hicks"],
-        correctAnswer: "3. Austion Powers"
+        answers: ["1. Bill Burr", "2. George Carlin", "3. Dr. Evil", "4. Bill Hicks"],
+        correctAnswer: "3"
     }
 ]
-
-
 
 // EVENT LISTENERS
 // start button listener to begin quiz
 startBtnEl.addEventListener("click", beginQuiz);
 answerSectionEl.addEventListener("click", testAnswer);
-
-
-
-
-
-
-
-
-
-
-
-
-
-// let askQuestion = function() {
-//     let buttonItemEl = document.createElement("button");
-//     buttonItemEl.className = "answer-button";
-
-//     add answer id as a custom attribute
-//     buttonItemEl.setAttribute("data-answer-id", answerIdCounter);
-
-//     document.getElementById("answers").innerHTML = toString(this.quizQuestion.answers[0]);
-// }
-
-// let shuffleAnswers = function(quizQuestion) {
-//     let i, j, k;
-//     for (i = points.length -1; i > 0; i--) {
-//     j = Math.floor(Math.random() * i)
-//     k = quizQuestion.answers[i]
-//     quizQuestion.answers[i] = quizQuestion.answers[j]
-//     quizQuestion.answers[j] = k
-//     }
-//     document.getElementById("answers").innerHTML = quizQuestion.answers;
-// }
-
-
-
