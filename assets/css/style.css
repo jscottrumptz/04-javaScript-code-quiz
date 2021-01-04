@@ -47,6 +47,20 @@
     font-size: 30px;
   }
 
+  .correct {
+    display: none;
+  }
+
+  .correct h1 {
+    font-size: 40px;
+    font-style: italic;
+    color: #aaaaaa;
+    font-weight: lighter;
+    text-align: left;
+    border-top: 5px solid #aaaaaa;
+    padding: 15px;
+  }
+
   footer {
     width: 100%;
     color: var(--tertiary);
@@ -65,7 +79,6 @@
   }
 
   .start {
-    display: unset;
     margin-top: 40px;
   }
 
