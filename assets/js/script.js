@@ -7,6 +7,18 @@ let answered = false;
 let timer = 75;
 
 let beginQuiz = function(){
+
+    let waitForAnswer = function() {
+        document.getElementById("timer").innerHTML = "Time: " + timer;
+        timer--;
+        if (timer === 0){
+            alert("GAME OVER!");
+            clearInterval(startTimer);
+        }
+    }
+    
+    let startTimer = setInterval(waitForAnswer, 1000);
+
     // call each question object one by one
     for (var i = 0; i < quizQuestions.length; i++) {
         // clear info section
@@ -24,10 +36,10 @@ let beginQuiz = function(){
             askQuestions(pickedQuestion);
 
             // wait for answer
-            waitForAnswer(pickedQuestion);
+            // waitForAnswer();
 
             // reset answer to false
-            answer = false;
+            // answer = false;
 
         } else {
             endQuiz();
@@ -65,12 +77,6 @@ let askQuestions = function(quizQuestions) {
     
 }
 
-let waitForAnswer = function(quizQuestions) {
-    // do {
-    //     answerSectionEl.addEventListener("click", testAnswer);
-    // } while((!answered) && (timer > 0))
-}
-
 let testAnswer = function(event) {
     //get target element from event
     let targetEl = event.target;
@@ -84,6 +90,7 @@ let testAnswer = function(event) {
         document.getElementById("correct-section").style.display = "unset"
         targetEl.setAttribute("data-clicked", true);
         correctSectionEl.innerHTML = "WRONG!";
+        timer = timer - 10;
         answered = true;
     }
 }
