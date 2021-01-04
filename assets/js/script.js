@@ -5,51 +5,49 @@ let infoSectionEl = document.querySelector("#info");
 let correctSectionEl = document.getElementById("correct");
 let answered = false;
 let timer = 75;
+let questionNumber = 0;
 
 let beginQuiz = function(){
 
-    let waitForAnswer = function() {
+    let countdown = function() {
         document.getElementById("timer").innerHTML = "Time: " + timer;
         timer--;
         if (timer === 0){
-            alert("GAME OVER!");
+            endQuiz();
             clearInterval(startTimer);
         }
     }
     
-    let startTimer = setInterval(waitForAnswer, 1000);
+    let startTimer = setInterval(countdown, 1000);
 
-    // call each question object one by one
-    for (var i = 0; i < quizQuestions.length; i++) {
-        // clear info section
-        infoSectionEl.innerHTML = "";
+    nextQuestion();
 
-        if(timer > 0){
 
-            let pickedQuestion = quizQuestions[i];
-
-            // clear previous answers and notifications if there are any
-            answerSectionEl.innerHTML = "";
-            document.getElementById("correct-section").style.display = "none"
-
-            // asks the first question to the user
-            askQuestions(pickedQuestion);
-
-            // wait for answer
-            // waitForAnswer();
-
-            // reset answer to false
-            // answer = false;
-
-        } else {
-            endQuiz();
-        }
-    }
 }
 
 let endQuiz = function() {
+    alert("QUIZ IS OVER!");
     // get initials
     // post high scores
+}
+
+let nextQuestion = function() {
+    
+    // set answered to false
+    answered = false;
+
+    // clear info section
+    infoSectionEl.innerHTML = "";
+
+    // pick question
+    let pickedQuestion = quizQuestions[questionNumber];
+
+    // clear previous answers and notifications if there are any
+    answerSectionEl.innerHTML = "";
+    document.getElementById("correct-section").style.display = "none"
+
+    // asks the first question to the user
+    askQuestions(pickedQuestion);
 }
 
 let askQuestions = function(quizQuestions) {
@@ -82,16 +80,41 @@ let testAnswer = function(event) {
     let targetEl = event.target;
 
     if((targetEl.matches("button")) && (targetEl.getAttribute("data-correct") === "true") && (answered === false)) {
+        // make the correct section visable
         document.getElementById("correct-section").style.display = "unset"
+        // set data clicked to true for css styling
         targetEl.setAttribute("data-clicked", true);
+        // let the user know they were correct
         correctSectionEl.innerHTML = "CORRECT!";
+        // set answered to true so user cannot select another answer
         answered = true;
+        // set up for next question
+        questionNumber++;
+        // check if there is a next question if not call endQuiz function
+        if ((questionNumber > quizQuestions.length - 1) || (timer <= 0)) {
+            var wait = setTimeout(endQuiz, 5000);
+        }
+        // if there is one, wait 5 seconds and ask the next question
+        var wait = setTimeout(nextQuestion, 5000);
     } else if((targetEl.matches("button")) && (targetEl.getAttribute("data-correct") === "false") && (answered === false)) {
+        // make the correct section visable
         document.getElementById("correct-section").style.display = "unset"
+        // set data clicked to true for css styling
         targetEl.setAttribute("data-clicked", true);
+        // let the user know they were wrong
         correctSectionEl.innerHTML = "WRONG!";
+        // penalize the player -10 secs for being incorrect
         timer = timer - 10;
+        // set answered to true so user cannot select another answer
         answered = true;
+        // set up for next question
+        questionNumber++;
+        // check if there is a next question if not call endQuiz function
+        if ((questionNumber > quizQuestions.length - 1) || (timer <= 0)) {
+            var wait = setTimeout(endQuiz, 5000);
+        }
+        // if there is one, wait 5 seconds and ask the next question
+        var wait = setTimeout(nextQuestion, 5000);
     }
 }
 
