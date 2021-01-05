@@ -59,7 +59,7 @@
 
   main .question {
     font-weight: bold;
-    font-size: 60px;
+    font-size: 50px;
   }
 
   main .info {
@@ -76,6 +76,7 @@
   
   .answers button {
     display:list-item;
+    padding: 20px 100px 20px 20px;
   }
 
   .correct {
@@ -92,8 +93,28 @@
     padding: 15px;
   }
 
-  .player-initials {
-    display: none;
+  .initials-form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .initials-form p {
+    font-size: 30px;
+  }
+
+  .initials-form button {
+    font-size: 25px;
+    padding: 5px 20px 5px 20px;
+    margin: 0;
+    border-radius: 10px;
+  }
+
+  .initials-form input {
+    margin: 5px;
+    padding: 5px;
+    font-size: 25px;
+    border: 2px solid black;
   }
 
   footer {
