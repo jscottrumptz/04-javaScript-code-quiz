@@ -9,36 +9,49 @@ let questionNumber = 0;
 let questionsLeft = true;
 let score = 0;
 
+// countdown funtion for the quizTimer
+let countdown = function() {
+    timer--;
+    document.getElementById("timer").innerHTML = "Time: " + timer;
+    if (timer === 0){
+        endQuiz();
+    }
+}
+
+// sets the timer to 1 sec increments
+let quizTimer = setInterval(countdown, 1000);
+
+// stops the timer
+clearInterval(quizTimer);
+
+// starts the quiz
 let beginQuiz = function(){
 
     questionNumber = 0;
     questionsLeft = true;
+    timer = 75;
     score = 0;
 
-    let countdown = function() {
-        document.getElementById("timer").innerHTML = "Time: " + timer;
-        timer--;
-        if (timer === 0){
-            endQuiz();
-            clearInterval(startTimer);
-        }
-    }
-    
-    let startTimer = setInterval(countdown, 1000);
-
-    // ask the first question
+    // function that cycles through questions in the quizQuestions array
     nextQuestion();
 
 }
 
+// ends the quiz
 let endQuiz = function() {
+    // alert for testing
     alert("QUIZ IS OVER!");
+    // stops the timer
+    clearInterval(quizTimer);
 
     // get initials
     // post high scores
 }
 
 let nextQuestion = function() {
+
+    // starts the timer
+    quizTimer = setInterval(countdown, 1000);
     
     // see if there are questions left
     if(!questionsLeft) {
@@ -98,17 +111,7 @@ let testAnswer = function(event) {
         targetEl.setAttribute("data-clicked", true);
         // let the user know they were correct
         correctSectionEl.innerHTML = "CORRECT!";
-        // set answered to true so user cannot select another answer
-        answered = true;
-        // set up for next question
-        questionNumber++;
-        // check if there is a next question if not set questions left to false
-        if ((questionNumber > quizQuestions.length - 1) || (timer <= 0)) {
-            score = timer;
-            questionsLeft = false;
-        }
-        // wait 5 seconds and ask the next question
-        var wait = setTimeout(nextQuestion, 5000);
+        answerHandler();
     } else if((targetEl.matches("button")) && (targetEl.getAttribute("data-correct") === "false") && (answered === false)) {
         // make the correct section visable
         document.getElementById("correct-section").style.display = "unset"
@@ -118,18 +121,24 @@ let testAnswer = function(event) {
         correctSectionEl.innerHTML = "WRONG!";
         // penalize the player -10 secs for being incorrect
         timer = timer - 10;
-        // set answered to true so user cannot select another answer
-        answered = true;
-        // set up for next question
-        questionNumber++;
-        // check if there is a next question if not set questions left to false
-        if ((questionNumber > quizQuestions.length - 1) || (timer <= 0)) {
-            score = timer;
-            questionsLeft = false;
-        }
-        // wait 5 seconds and ask the next question
-        var wait = setTimeout(nextQuestion, 5000);
+        answerHandler();
     }
+}
+
+let answerHandler = function() {
+    document.getElementById("timer").innerHTML = "Time: " + timer;
+    // set answered to true so user cannot select another answer
+    answered = true;
+    // set up for next question
+    questionNumber++;
+    // check if there is a next question if not set questions left to false
+    if ((questionNumber > quizQuestions.length - 1) || (timer <= 0)) {
+        score = timer;
+        questionsLeft = false;
+    }
+    // pause the timer and wait 5 seconds and ask the next question
+    clearInterval(quizTimer);
+    var wait = setTimeout(nextQuestion, 5000);
 }
 
 // create question objects and store them into an array
