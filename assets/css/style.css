@@ -43,6 +43,9 @@
   header .scores {
     flex: 1;
     color: var(--secondary);
+    max-width:240px;
+    text-align: left;
+    background-color: white;
   }
 
   header .timer {

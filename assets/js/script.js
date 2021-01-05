@@ -7,10 +7,12 @@ let h1El = document.getElementById("question");
 let timeDisplayEl = document.getElementById("timer");
 let correctDisplayEl = document.getElementById("correct-section");
 let initialsFormEl = document.getElementById("initials-form");
+let viewHighBtnEl = document.getElementById("view-high");
 let highScoresEl = document.getElementById("high-scores");
 let scoreOlEl = document.getElementById("score-list");
 let goBackBtnEl = document.getElementById("go-back");
 let clearScoresBtnEl = document.getElementById("clear-scores");
+let topScoreLiEl = document.getElementById("top-score");
 let answered = false;
 let timer = 75;
 let questionNumber = 0;
@@ -170,6 +172,62 @@ let answerHandler = function() {
     var wait = setTimeout(nextQuestion, 5000);
 }
 
+let sumbitScore = function(event) {
+    // stop page from refreshing
+    event.preventDefault();
+    // set variables
+    playerInitials = document.querySelector("input[name='player-initials']").value;
+
+    if (playerInitials === "") {
+        alert("Please enter your intials")
+    } else if (playerInitials.length > 3) {
+        alert("Just your intials please")
+    } else if (isNaN(playerInitials) === false) {
+        alert("Initials please, not a number")
+    }else if(score > highScore ) {
+        highScore = score;
+    alert("New high score! " + playerInitials + " - " + score);
+        topScoreLiEl.textContent = playerInitials + " - " + score
+        displayHighScores();
+    } else {
+    alert("Sorry, you didn't beat the high score...");
+        displayHighScores();
+    }
+}
+
+let displayHighScores = function() {
+
+    // stop quiz timer if it was running
+    clearInterval(quizTimer);
+
+    // hide all elements so this can be used any time
+    answerSectionEl.style.display = "none"
+    infoSectionEl.style.display = "none"
+    correctSectionEl.style.display = "none"
+    h1El.style.display = "none"
+    timeDisplayEl.style.display = "none"
+    correctDisplayEl.style.display = "none"
+    initialsFormEl.style.display = "none"
+    startBtnEl.style.display = "none"
+    viewHighBtnEl.style.display = "none"
+
+    // make the high scores section visable
+    highScoresEl.style.display = "unset"
+
+    // populate the high scores
+    
+
+
+}
+
+let clearHighScores = function(){
+    topScoreLiEl.textContent = "";
+}
+
+let restartQuiz = function(){
+    location.reload();
+}
+
 // create question objects and store them into an array
 let quizQuestions = [
     {
@@ -189,33 +247,11 @@ let quizQuestions = [
     }
 ]
 
-let sumbitScore = function(event) {
-    // stop page from refreshing
-    event.preventDefault();
-    // set variables
-    playerInitials = document.querySelector("input[name='player-initials']").value;
-
-    if (playerInitials === "") {
-        alert("Please enter your intials")
-    } else if (playerInitials.length > 3) {
-        alert("Just your intials please")
-    } else if (isNaN(playerInitials) === false) {
-        alert("Initials please, not a number")
-    }else if(score > highScore ) {
-        highScore = score;
-    alert(playerInitials + " - " + score);
-    } else {
-    alert("Sorry, you didn't beat the high score...")
-    }
-}
-
-let restartQuiz = function(){
-    location.reload();
-}
-
 // EVENT LISTENERS
 // start button listener to begin quiz
 startBtnEl.addEventListener("click", beginQuiz);
 answerSectionEl.addEventListener("click", testAnswer);
 document.addEventListener("submit", sumbitScore);
-goBackBtnEl.addEventListener("click", restartQuiz)
+goBackBtnEl.addEventListener("click", restartQuiz);
+viewHighBtnEl.addEventListener("click", displayHighScores);
+clearScoresBtnEl.addEventListener("click", clearHighScores);
