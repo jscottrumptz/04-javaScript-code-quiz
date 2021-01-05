@@ -7,6 +7,10 @@ let h1El = document.getElementById("question");
 let timeDisplayEl = document.getElementById("timer");
 let correctDisplayEl = document.getElementById("correct-section");
 let initialsFormEl = document.getElementById("initials-form");
+let highScoresEl = document.getElementById("high-scores");
+let scoreOlEl = document.getElementById("score-list");
+let goBackBtnEl = document.getElementById("go-back");
+let clearScoresBtnEl = document.getElementById("clear-scores");
 let answered = false;
 let timer = 75;
 let questionNumber = 0;
@@ -38,6 +42,8 @@ let beginQuiz = function(){
     timer = 75;
     score = 0;
     initialsFormEl.style.display = "none"
+    highScoresEl.style.display = "none"
+    startBtnEl.style.display = "none"
 
     // function that cycles through questions in the quizQuestions array
     nextQuestion();
@@ -191,12 +197,20 @@ let sumbitScore = function(event) {
 
     if (playerInitials === "") {
         alert("Please enter your intials")
-    } else if(score > highScore ) {
+    } else if (playerInitials.length > 3) {
+        alert("Just your intials please")
+    } else if (isNaN(playerInitials) === false) {
+        alert("Initials please, not a number")
+    }else if(score > highScore ) {
         highScore = score;
-    alert(playerInitials + " has a score of " + score);
+    alert(playerInitials + " - " + score);
     } else {
     alert("Sorry, you didn't beat the high score...")
     }
+}
+
+let restartQuiz = function(){
+    location.reload();
 }
 
 // EVENT LISTENERS
@@ -204,3 +218,4 @@ let sumbitScore = function(event) {
 startBtnEl.addEventListener("click", beginQuiz);
 answerSectionEl.addEventListener("click", testAnswer);
 document.addEventListener("submit", sumbitScore);
+goBackBtnEl.addEventListener("click", restartQuiz)

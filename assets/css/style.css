@@ -66,10 +66,6 @@
     font-size: 30px;
   }
 
-  .start {
-    margin-top: 40px;
-  }
-
   .answers {
     flex: 1 60%;
   }
@@ -115,6 +111,36 @@
     padding: 5px;
     font-size: 25px;
     border: 2px solid black;
+  }
+
+  .high-scores h1{
+    text-align: left;
+    padding-left: 20px;
+    font-size: 30px;
+    margin-bottom: 5px;
+  }
+
+  .high-scores ol {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--tertiary);
+    width: 100%;
+  }
+
+  .high-scores li{
+    background-color: var(--tertiary);
+    width: max-content;
+    font-size: 25px;
+    padding: 10px 10px 10px 0;
+    margin-left: 20px;
+  }
+
+  .high-scores button {
+    font-size: 25px;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+    float: left;
   }
 
   footer {
