@@ -20,6 +20,7 @@ let questionsLeft = true;
 let score = 0;
 let playerInitials = "";
 let highScore = 0;
+let quizHighScores = []
 
 // countdown funtion for the quizTimer
 let countdown = function() {
@@ -72,7 +73,6 @@ let endQuiz = function() {
 
     // get initials
     initialsFormEl.style.display = "flex"
-    // post high scores
 }
 
 let nextQuestion = function() {
@@ -169,7 +169,7 @@ let answerHandler = function() {
     }
     // pause the timer and wait 5 seconds and ask the next question
     clearInterval(quizTimer);
-    var wait = setTimeout(nextQuestion, 5000);
+    var wait = setTimeout(nextQuestion, 3000);
 }
 
 let sumbitScore = function(event) {
@@ -184,10 +184,17 @@ let sumbitScore = function(event) {
         alert("Just your intials please")
     } else if (isNaN(playerInitials) === false) {
         alert("Initials please, not a number")
-    }else if(score > highScore ) {
+    }else if(score > highScore) {
         highScore = score;
-    alert("New high score! " + playerInitials + " - " + score);
-        topScoreLiEl.textContent = playerInitials + " - " + score
+        alert("New high score! " + playerInitials + " - " + score);
+        let topScoreObj = {
+            initials: playerInitials,
+            score: score
+        }
+        // add the new high score into the array
+        quizHighScores.unshift(topScoreObj);
+        // Save the high scores
+        saveScores();
         displayHighScores();
     } else {
     alert("Sorry, you didn't beat the high score...");
@@ -195,33 +202,61 @@ let sumbitScore = function(event) {
     }
 }
 
-let displayHighScores = function() {
+let createHighScore = function() {
+    
+    for (let i = 0; i < quizHighScores.length; i++) {
+    // create list item
+    let scoreListItemEl = document.createElement("li");
+    scoreListItemEl.className = "top-score";
+    scoreListItemEl.innerHTML = quizHighScores[i].initials + " - " + quizHighScores[i].score;
+    scoreOlEl.appendChild(scoreListItemEl);
+    }
+}
 
+let displayHighScores = function() {
+    
     // stop quiz timer if it was running
     clearInterval(quizTimer);
 
     // hide all elements so this can be used any time
-    answerSectionEl.style.display = "none"
-    infoSectionEl.style.display = "none"
-    correctSectionEl.style.display = "none"
-    h1El.style.display = "none"
-    timeDisplayEl.style.display = "none"
-    correctDisplayEl.style.display = "none"
-    initialsFormEl.style.display = "none"
-    startBtnEl.style.display = "none"
-    viewHighBtnEl.style.display = "none"
+    answerSectionEl.style.display = "none";
+    infoSectionEl.style.display = "none";
+    correctSectionEl.style.display = "none";
+    h1El.style.display = "none";
+    timeDisplayEl.style.display = "none";
+    correctDisplayEl.style.display = "none";
+    initialsFormEl.style.display = "none";
+    startBtnEl.style.display = "none";
+    viewHighBtnEl.style.display = "none";
 
     // make the high scores section visable
-    highScoresEl.style.display = "unset"
+    highScoresEl.style.display = "unset";
 
-    // populate the high scores
-    
-
+    // load the high scores
+    createHighScore();
 
 }
 
+let saveScores = function() {
+    localStorage.setItem("quizHighScores", JSON.stringify(quizHighScores));
+    localStorage.setItem("highScore", highScore);
+}
+
+let loadScores = function() {
+    quizHighScores = JSON.parse(localStorage.getItem("quizHighScores"));
+    highScore = localStorage.getItem("highScore");
+
+    // if there are no locally stored scores, set up empty array
+    if (!quizHighScores) {
+        quizHighScores = [];
+    }
+}
+
 let clearHighScores = function(){
-    topScoreLiEl.textContent = "";
+    scoreOlEl.textContent = "";
+    quizHighScores = [];
+    highScore = 0;
+    saveScores();
 }
 
 let restartQuiz = function(){
@@ -255,3 +290,5 @@ document.addEventListener("submit", sumbitScore);
 goBackBtnEl.addEventListener("click", restartQuiz);
 viewHighBtnEl.addEventListener("click", displayHighScores);
 clearScoresBtnEl.addEventListener("click", clearHighScores);
+
+loadScores();
