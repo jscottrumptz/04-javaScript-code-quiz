@@ -129,7 +129,7 @@ let testAnswer = function(event) {
         correctSectionEl.innerHTML = "CORRECT!";
         answerHandler();
 
-        // if it is the wrong answer
+    // if it is the wrong answer
     } else if((targetEl.matches("button")) && (targetEl.getAttribute("data-correct") === "false") && (answered === false)) {
         // make the correct section visable
         correctDisplayEl.style.display = "unset"
@@ -205,8 +205,9 @@ let sumbitScore = function(event) {
         }
         // add the new high score into the array
         quizHighScores.unshift(topScoreObj);
-        // Save the high scores
+        // save the high scores
         saveScores();
+        // show the high scores
         displayHighScores();
     } else {
     alert("Sorry, you didn't beat the high score...");
@@ -283,18 +284,28 @@ let restartQuiz = function(){
 // create question objects and store them into an array
 let quizQuestions = [
     {
-        question: "How many fucks are given?",
-        answers: ["1. zero","2. one","3. two","4. three"],
+        question: "What is the function localStorage.setItem() used for?",
+        answers: ["1. Creates data items inside local storage","2. Putting objects into an array","3. That is not a function","4. Setting an object to a local storage id"],
         correctAnswer: "1"
     },
     {
-        question: "Who does number two work for?",
-        answers: ["1. Bill Burr", "2. George Carlin", "3. Dr. Evil", "4. Bill Hicks"],
+        question: "Which is a propper if statement in JavaScript?",
+        answers: ["1. if i = 5 then", "2. if i == 5 then", "3. if( i == 5 )", "4. if( i = 5 )"],
         correctAnswer: "3"
     },
     {
-        question: "Who's the boss?",
-        answers: ["1. Tony", "2. Angelia", "3. Mona", "4. Samantha"],
+        question: "Inside which HTML element do we put the JavaScript?",
+        answers: ["1. <js>", "2. <script>", "3. <javascript>", "4. <scripting>"],
+        correctAnswer: "2"
+    },
+    {
+        question: 'What is the correct syntax for referring to an external script called "script.js"?',
+        answers: ['1. <script href="script.js">', '2. <script name="script.js">', '3. <script js="script.js">', '4. <script src="script.js">'],
+        correctAnswer: "4"
+    },
+    {
+        question: "How do you call a function named myFunction?",
+        answers: ["1. call myFunction", "2. myFunction()", "3. function().myFunction", "4. let myfunction = function()"],
         correctAnswer: "2"
     }
 ]
