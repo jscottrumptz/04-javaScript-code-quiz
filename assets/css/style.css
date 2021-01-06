@@ -162,3 +162,51 @@
     padding: 20px;
     text-align: center;
   }
+
+  /* MEDIA QUERY FOR SMALLER DESKTOP SCREENS AND SMALLER */
+@media screen and (max-width: 850px) {
+
+  button {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  main .question {
+    font-size: 30px;
+  }
+
+  main .info {
+    font-size: 25px;
+  }
+
+  header h3 {
+    font-size: 16px;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  .answers button {
+    padding: 20px 40px 20px 20px;
+  }
+
+  .high-scores button {
+    font-size: 16px;
+  }
+
+  .initials-form p {
+    font-size: 25px;
+  }
+
+  .initials-form button {
+    font-size: 16px;
+  }
+
+  .initials-form input {
+    font-size: 16px;
+
+  }
+
+
+}
