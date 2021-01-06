@@ -1,49 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J. Scott Rumptz's JavaScript Quiz</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-<body>
-    <header>
-        <button class="scores" id="view-high">View high scores</button>
-        <h3 class="timer" id="timer">Time: 75</h3>
-    </header>
-    <main class="page-content" id="page-content">
-        <h1 class="question" id="question">Coding Quiz Challenge</h1>
-        <p class="info" id="info">
-            Try to answer the following code-related questions within the time limit. </br>
-            Keep in mind that incorrect answers will penalize your score/time by 10 seconds! </br>
-        </p>
-        <button class="start" id="start-btn">Start Quiz</button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>J. Scott Rumptz's JavaScript Quiz</title>
+        <!-- link to css style sheet -->
+        <link rel="stylesheet" href="./assets/css/style.css">
+    </head>
+    <body>
+        <!-- header that holds the high score button and timer-->
+        <header>
+            <button class="scores" id="view-high">View high scores</button>
+            <h3 class="timer" id="timer">Time: 75</h3>
+        </header>
 
-        <section class="answers" id="answers">
-        </section>
+        <!-- main that holds intro information and sections for everything else -->
+        <main class="page-content" id="page-content">
+            <!-- used for intro title and for asking questions -->
+            <h1 class="question" id="question">Coding Quiz Challenge</h1>
+            <!-- used for instructions -->
+            <p class="info" id="info">
+                Try to answer the following code-related questions within the time limit. </br>
+                Keep in mind that incorrect answers will penalize your score/time by 10 seconds! </br>
+            </p>
+            <!-- used to begin quiz -->
+            <button class="start" id="start-btn">Start Quiz</button>
 
-        <section class="correct" id="correct-section">
-            <h1 id="correct"></h1>
-        </section>
+            <!-- sectiion used to display question answer buttons -->
+            <section class="answers" id="answers">
+            </section>
 
-        <form class="initials-form" id="initials-form">
-            <p>Enter initials: </p>
-            <input type="text" name="player-initials" placeholder=""/>
-            <button id="save-initials" type="submit">Submit</button>
-        </form>
+            <!-- sectiion used to display if the answer was correct -->
+            <section class="correct" id="correct-section">
+                <h1 id="correct"></h1>
+            </section>
 
-        <section class="high-scores" id="high-scores">
-            <h1>High Scores</h1>
-            <ol class="score-list" id="score-list">
-            </ol>
-            <button id="go-back">Go back</button>
-            <button id="clear-scores">Clear high scores</button>
-        </section>
+            <!-- sectiion used to capture player initials -->
+            <form class="initials-form" id="initials-form">
+                <p>Enter initials: </p>
+                <input type="text" name="player-initials" placeholder=""/>
+                <button id="save-initials" type="submit">Submit</button>
+            </form>
 
-    </main>
-    <footer>
-        &copy;2020 by J. Scott Rumptz
-    </footer>
-  <script src="./assets/js/script.js"></script>
-</body>
+            <!-- sectiion used to display a list of high scores -->
+            <section class="high-scores" id="high-scores">
+                <h1>High Scores</h1>
+                <ol class="score-list" id="score-list">
+                </ol>
+                <button id="go-back">Go back</button>
+                <button id="clear-scores">Clear high scores</button>
+            </section>
+
+        </main>
+
+        <!-- it does what a footer does -->
+        <footer>
+            &copy;2020 by J. Scott Rumptz
+        </footer>
+
+        <!-- sectiion used to display a list of high scores -->
+        <script src="./assets/js/script.js"></script>
+    </body>
 </html>

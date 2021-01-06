@@ -1,3 +1,4 @@
+// querySelectors
 let pageContentEl = document.querySelector("#page-content");
 let startBtnEl = document.querySelector("#start-btn");
 let answerSectionEl = document.querySelector("#answers");
@@ -13,6 +14,8 @@ let scoreOlEl = document.getElementById("score-list");
 let goBackBtnEl = document.getElementById("go-back");
 let clearScoresBtnEl = document.getElementById("clear-scores");
 let topScoreLiEl = document.getElementById("top-score");
+
+// variables
 let answered = false;
 let timer = 75;
 let questionNumber = 0;
@@ -40,10 +43,13 @@ clearInterval(quizTimer);
 // starts the quiz
 let beginQuiz = function(){
 
+    // reset variables before a new quiz
     questionNumber = 0;
     questionsLeft = true;
     timer = 75;
     score = 0;
+
+    // hide page elements
     initialsFormEl.style.display = "none"
     highScoresEl.style.display = "none"
     startBtnEl.style.display = "none"
@@ -53,28 +59,7 @@ let beginQuiz = function(){
 
 }
 
-// ends the quiz
-let endQuiz = function() {
-    // stops the timer
-    clearInterval(quizTimer);
-
-    // announce it has ended    
-    h1El.innerHTML = "All done!";
-    h1El.style.textAlign = "left";
-    h1El.style.margin = "0 0 10px 0";
-    // display final score
-    infoSectionEl.innerHTML = "Your final score is " + score + ".";
-    infoSectionEl.style.textAlign = "left";
-    infoSectionEl.style.margin = "0";
-
-    // clear answer buttons an correct section
-    answerSectionEl.innerHTML = "";
-    correctDisplayEl.style.display = "none"
-
-    // get initials
-    initialsFormEl.style.display = "flex"
-}
-
+// cycles through quizQuestions
 let nextQuestion = function() {
 
     // starts the timer
@@ -102,6 +87,7 @@ let nextQuestion = function() {
     }
 }
 
+// asks question and populates answer buttons
 let askQuestions = function(quizQuestions) {
 
     // Writes the question to h1 question id
@@ -128,6 +114,7 @@ let askQuestions = function(quizQuestions) {
     
 }
 
+// checks for correct or incorrect answers
 let testAnswer = function(event) {
     //get target element from event
     let targetEl = event.target;
@@ -156,6 +143,7 @@ let testAnswer = function(event) {
     }
 }
 
+// handles post answer logic
 let answerHandler = function() {
     timeDisplayEl.innerHTML = "Time: " + timer;
     // set answered to true so user cannot select another answer
@@ -172,6 +160,30 @@ let answerHandler = function() {
     var wait = setTimeout(nextQuestion, 3000);
 }
 
+// ends the quiz
+let endQuiz = function() {
+    // stops the timer
+    clearInterval(quizTimer);
+
+    // announce it has ended    
+    h1El.innerHTML = "All done!";
+    h1El.style.textAlign = "left";
+    h1El.style.margin = "0 0 10px 0";
+
+    // display final score
+    infoSectionEl.innerHTML = "Your final score is " + score + ".";
+    infoSectionEl.style.textAlign = "left";
+    infoSectionEl.style.margin = "0";
+
+    // clear answer buttons and the correct section
+    answerSectionEl.innerHTML = "";
+    correctDisplayEl.style.display = "none"
+
+    // get initials
+    initialsFormEl.style.display = "flex"
+}
+
+// capture user's initials and check for high score
 let sumbitScore = function(event) {
     // stop page from refreshing
     event.preventDefault();
@@ -202,6 +214,7 @@ let sumbitScore = function(event) {
     }
 }
 
+// builds the high score list
 let createHighScore = function() {
     
     for (let i = 0; i < quizHighScores.length; i++) {
@@ -213,6 +226,7 @@ let createHighScore = function() {
     }
 }
 
+// displays the high score list
 let displayHighScores = function() {
     
     // stop quiz timer if it was running
@@ -237,11 +251,13 @@ let displayHighScores = function() {
 
 }
 
+// saves high scores to localStorage
 let saveScores = function() {
     localStorage.setItem("quizHighScores", JSON.stringify(quizHighScores));
     localStorage.setItem("highScore", highScore);
 }
 
+// loads high scores from localStorage
 let loadScores = function() {
     quizHighScores = JSON.parse(localStorage.getItem("quizHighScores"));
     highScore = localStorage.getItem("highScore");
@@ -252,6 +268,7 @@ let loadScores = function() {
     }
 }
 
+// clears high scores from localStorage
 let clearHighScores = function(){
     scoreOlEl.textContent = "";
     quizHighScores = [];
@@ -285,10 +302,16 @@ let quizQuestions = [
 // EVENT LISTENERS
 // start button listener to begin quiz
 startBtnEl.addEventListener("click", beginQuiz);
+// answer buttons listener
 answerSectionEl.addEventListener("click", testAnswer);
+// initial form sumbmit button
 document.addEventListener("submit", sumbitScore);
+// go back button
 goBackBtnEl.addEventListener("click", restartQuiz);
+// view high scores button
 viewHighBtnEl.addEventListener("click", displayHighScores);
+// clear high scroes button
 clearScoresBtnEl.addEventListener("click", clearHighScores);
 
+// call a function to load high scores from localStorage
 loadScores();

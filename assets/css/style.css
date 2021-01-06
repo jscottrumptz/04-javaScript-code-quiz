@@ -8,12 +8,15 @@
     --secondary: #bd60e7;
     --tertiary: #d9d3e9;
     --black: #000000;
+    --white: #FFFFFF;
+    --grey: #aaaaaa;
   }
 
+  /*BUTTONS*/
   button {
     padding: 20px;
     background-color: var(--primary);
-    color: white;
+    color: var(--white);
     font-size: 25px;
     border: none;
     outline:none;
@@ -29,6 +32,7 @@
     background-color: var(--secondary);
   }
 
+  /*HEADER*/
   header {
     padding: 30px 100px 30px 50px;
     display: flex;
@@ -45,7 +49,7 @@
     color: var(--secondary);
     max-width:240px;
     text-align: left;
-    background-color: white;
+    background-color: var(--white);
   }
 
   header .timer {
@@ -53,11 +57,11 @@
     text-align: right;
   }
 
+  /* MAIN*/
   main {
     width: 60%;
     text-align: center;
     margin: auto;
-    
   }
 
   main .question {
@@ -69,6 +73,7 @@
     font-size: 30px;
   }
 
+  /*ANSWER SECTION*/
   .answers {
     flex: 1 60%;
   }
@@ -78,6 +83,7 @@
     padding: 20px 100px 20px 20px;
   }
 
+  /* hides CORRECT SECTION on page load and formats it accordingly*/
   .correct {
     display: none;
   }
@@ -85,13 +91,14 @@
   .correct h1 {
     font-size: 40px;
     font-style: italic;
-    color: #aaaaaa;
+    color: var(--grey);
     font-weight: lighter;
     text-align: left;
-    border-top: 5px solid #aaaaaa;
+    border-top: 5px solid var(--grey);
     padding: 15px;
   }
 
+  /* hides INITIALS-FORM SECTION on page load and formats it accordingly*/
   .initials-form {
     display: none;
     align-items: center;
@@ -113,9 +120,10 @@
     margin: 5px;
     padding: 5px;
     font-size: 25px;
-    border: 2px solid black;
+    border: 2px solid var(--black);
   }
 
+  /* hides HIGH-SCORE SECTION on page load and formats it accordingly*/
   .high-scores {
     display: none;
   }
@@ -147,6 +155,7 @@
     float: left;
   }
 
+  /*FOOTER*/
   footer {
     width: 100%;
     color: var(--tertiary);

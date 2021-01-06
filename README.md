@@ -19,7 +19,7 @@ A timed quiz on JavaScript fundamentals that stores high scores
 ## Website
 https://jscottrumptz.github.io/04-javaScript-code-quiz/
 
-[image link coming soon]
+![image](https://user-images.githubusercontent.com/74981245/103713049-e6b59480-4f80-11eb-81a8-9e8b4d3b4e81.png)
 
 ## Contribution
 Made with ❤️ by J Scott Rumptz
